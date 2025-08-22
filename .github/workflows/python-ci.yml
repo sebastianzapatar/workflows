@@ -10,6 +10,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
     strategy:
       fail-fast: false
       matrix:
@@ -31,10 +33,3 @@ jobs:
 
       - name: Run tests
         run: pytest -q
-
-      - name: Summary
-        if: success()
-        run: |
-          echo "# ✅ Tests OK" >> "$GITHUB_STEP_SUMMARY"
-          echo "*Python:* ${{ matrix.python-version }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "*Commit:* $GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
