@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: push-ok-${{ github.ref }}
+  group: "push-ok-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
@@ -20,7 +20,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Decir OK en consola
-        run: echo "✅ OK: se ejecutó el workflow en $GITHUB_REF por $GITHUB_ACTOR"
+        run: |
+          echo "✅ OK: se ejecutó el workflow en $GITHUB_REF por $GITHUB_ACTOR"
 
       - name: Publicar resumen bonito
         run: |
