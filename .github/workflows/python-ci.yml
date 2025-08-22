@@ -1,0 +1,40 @@
+name: Python CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Summary
+        if: success()
+        run: |
+          echo "# ✅ Tests OK" >> "$GITHUB_STEP_SUMMARY"
+          echo "*Python:* ${{ matrix.python-version }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "*Commit:* $GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
