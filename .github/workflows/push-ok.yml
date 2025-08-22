@@ -21,10 +21,10 @@ jobs:
 
       - name: Decir OK en consola
         run: |
-          echo "✅ OK: se ejecutó el workflow en $GITHUB_REF por $GITHUB_ACTOR"
+          echo "OK: se ejecutó el workflow en $GITHUB_REF por $GITHUB_ACTOR"
 
       - name: Publicar resumen bonito
         run: |
-          echo "# ✅ Build OK" >> "$GITHUB_STEP_SUMMARY"
+          echo "# Build OK" >> "$GITHUB_STEP_SUMMARY"
           echo "*Commit:* $GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
           echo "*Rama:* $GITHUB_REF_NAME" >> "$GITHUB_STEP_SUMMARY"
